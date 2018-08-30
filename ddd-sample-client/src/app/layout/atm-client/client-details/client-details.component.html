@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Client details</h4>
+    <hr>
+    <div *ngIf="client">
+      <p class="card-text"><strong>Client ID: </strong>{{ client.atmClientId }}</p>
+      <p class="card-text"><strong>Username: </strong>{{ client.userName }}</p>
+      <p class="card-text"><strong>Branch ID: </strong>{{ client.branchId }}</p>
+      <p class="card-text"><strong>Branch Name: </strong>{{ client.branchName }}</p>
+      <p class="card-text"><strong>Date Joined: </strong>{{ client.creationDate }}</p>
+      <p class="card-text"><strong>Last Login: </strong>{{ client.lastLogin }}</p>
+      <p class="card-text"><strong>Type: </strong>{{ client.clientType }}</p>
+      <hr>
+      <div *ngIf="successMessage" class="alert alert-success" role="alert">
+        <strong>{{ successMessage }}</strong>
+      </div>
+      <div class="form-group">
+        <input type="number" [formControl]="pin" class="form-control" placeholder="New pin">
+      </div>
+      <button (click)="changePin()" class="btn btn-primary">Change Pin</button>
+    </div>
+  </div>
+</div>

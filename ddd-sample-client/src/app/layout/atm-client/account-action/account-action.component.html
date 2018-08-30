@@ -1,0 +1,19 @@
+<div class="form-group">
+  <form [formGroup]="actionForm" novalidate>
+    <h5>Account ID: {{ account.uniqueId }}</h5>
+    <label for="">Balance:</label>
+    <p>{{ account.balance }} {{ account.currency }}</p>
+    <div class="form-group">
+      <label for="">Amount</label>
+      <input formControlName="amount" type="number" class="form-control">
+    </div>
+    <div *ngIf="actionType === 'transfer'">
+      <div class="form-group">
+        <label for="">Transfer Account</label>
+        <select formControlName="transferAccount" type="number" class="form-control">
+          <option *ngFor="let account of transferAccounts" [value]="account.uniqueId">{{ account.uniqueId }}</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>

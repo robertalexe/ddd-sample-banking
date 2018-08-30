@@ -1,0 +1,20 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>ID</th>
+      <th>Amount</th>
+      <th>Transaction Type</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of account.transactions; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ transaction.transactionId }}</td>
+      <td>{{ transaction.amount }}</td>
+      <td>{{ transaction.transactionType }}</td>
+      <td>{{ transaction.transactionDate | date }}</td>
+    </tr>
+  </tbody>
+</table>

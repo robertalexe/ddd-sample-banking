@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm_2_0.xsd"
+                 version="2.1">
+
+    <access>FIELD</access>
+
+    <entity class="com.robert.ddd.account.Account">
+        <table name="ACCOUNT"/>
+        <attributes>
+            <embedded-id name="id"/>
+            <basic name="iban">
+                <column name="IBAN"/>
+            </basic>
+            <basic name="accountCurrency">
+                <column name="CURRENCY"/>
+                <enumerated>STRING</enumerated>
+            </basic>
+            <basic name="accountBalance">
+                <column name="BALANCE"/>
+            </basic>
+            <one-to-many name="transactions" orphan-removal="true">
+                <join-column name="USER_ID" referenced-column-name="USER_ID" insertable="false" updatable="false"/>
+                <join-column name="ACCOUNT_ID" referenced-column-name="ACCOUNT_ID" insertable="false" updatable="false"/>
+                <cascade><cascade-all/></cascade>
+            </one-to-many>
+        </attributes>
+    </entity>
+
+    <entity class="com.robert.ddd.transaction.Transaction">
+        <table name="TRANSACTION"/>
+        <attributes>
+            <embedded-id name="id"/>
+            <basic name="amount">
+                <column name="AMOUNT"/>
+            </basic>
+            <basic name="transactionType">
+                <column name="TRANSACTION_TYPE"/>
+                <enumerated>STRING</enumerated>
+            </basic>
+            <basic name="transactionDate">
+                <column name="TRANSACTION_DATE"/>
+            </basic>
+        </attributes>
+    </entity>
+
+    <entity class="com.robert.ddd.atm.ATMClient">
+        <table name="ATM_CLIENT"/>
+        <attributes>
+            <embedded-id name="id"/>
+            <one-to-many name="accounts" orphan-removal="true">
+                <join-column name="USER_ID" insertable="false" updatable="false"/>
+                <cascade><cascade-all/></cascade>
+            </one-to-many>
+            <embedded name="identificationInformation"/>
+            <embedded name="generalDetails"/>
+        </attributes>
+    </entity>
+
+    <embeddable class="com.robert.ddd.atm.ATMClientId">
+        <attributes>
+            <basic name="userId">
+                <column name="USER_ID"/>
+            </basic>
+        </attributes>
+    </embeddable>
+
+    <embeddable class="com.robert.ddd.account.AccountId">
+        <attributes>
+            <basic name="uniqueId">
+                <column name="ACCOUNT_ID"/>
+            </basic>
+            <embedded name="atmId"/>
+        </attributes>
+    </embeddable>
+
+    <embeddable class="com.robert.ddd.transaction.TransactionId">
+        <attributes>
+            <basic name="id">
+                <column name="TRANSACTION_ID"/>
+            </basic>
+            <embedded name="accountId"/>
+        </attributes>
+    </embeddable>
+
+    <embeddable class="com.robert.ddd.atm.BankBranch">
+        <attributes>
+            <basic name="branchId">
+                <column name="BRANCH_ID"/>
+            </basic>
+            <basic name="branchName">
+                <column name="BRANCH_NAME"/>
+            </basic>
+        </attributes>
+    </embeddable>
+
+    <embeddable class="com.robert.ddd.client.Client">
+        <attributes>
+            <basic name="userName">
+                <column name="USER_NAME"/>
+            </basic>
+            <basic name="pin">
+                <column name="PIN"/>
+            </basic>
+        </attributes>
+    </embeddable>
+
+    <embeddable class="com.robert.ddd.atm.IdentificationInformation">
+        <attributes>
+            <embedded name="client"/>
+            <embedded name="bankBranch"/>
+        </attributes>
+    </embeddable>
+
+    <embeddable class="com.robert.ddd.atm.GeneralDetails">
+        <attributes>
+            <basic name="accountCreationDate">
+                <column name="CREATION_DATE"/>
+            </basic>
+            <basic name="lastLogin">
+                <column name="LAST_LOGIN"/>
+            </basic>
+            <basic name="clientType">
+                <column name="CLIENT_TYPE"/>
+                <enumerated>STRING</enumerated>
+            </basic>
+        </attributes>
+    </embeddable>
+
+
+</entity-mappings>

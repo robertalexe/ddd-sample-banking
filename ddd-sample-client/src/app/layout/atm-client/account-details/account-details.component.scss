@@ -1,0 +1,17 @@
+tr {
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #d3e7fd5b;
+}
+
+.fa {
+    letter-spacing: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    &:hover {
+        color: #007bff;
+    }
+}

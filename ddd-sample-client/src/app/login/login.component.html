@@ -1,0 +1,16 @@
+<div class="container" style="margin-top: 10rem; width: 20rem;">
+  <div class="card">
+    <div class="card-body">
+      <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ errorMessage }}
+      </div>
+      <form [formGroup]="loginForm" novalidate>
+        <div class="form-group">
+          <label style="text-align: center; width: 100%" for="login">Login</label>
+          <input type="text" name="login" id="login" formControlName="accountId" class="form-control" placeholder="Account Id" aria-describedby="helpId">
+        </div>
+        <button (click)="login()" style="width: 100%" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+  </div>
+</div>

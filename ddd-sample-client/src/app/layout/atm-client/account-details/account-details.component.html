@@ -1,0 +1,33 @@
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Account ID</th>
+      <th>IBAN</th>
+      <th>Currency</th>
+      <th>Balance</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="table-row" *ngFor="let account of accounts; let i = index" (click)="onSelectAccount(account)">
+      <td>{{ i + 1 }}</td>
+      <td>{{ account.uniqueId }}</td>
+      <td>{{ account.iban }}</td>
+      <td>{{ account.currency }}</td>
+      <td>{{ account.balance }}</td>
+      <td>
+        <i (click)="openModal('withdraw', account)" class="fa fa-arrow-up" aria-hidden="true"></i>
+        <i (click)="openModal('deposit', account)" class="fa fa-arrow-down" aria-hidden="true"></i>
+        <i (click)="openModal('transfer', account)" class="fa fa-exchange" aria-hidden="true"></i>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<app-modal-container #modal (submit)="submitTransaction(modal.title)" (closed)="closeModal()">
+  <div *ngIf="showModal">
+    <app-account-action [actionType]="action" [account]="selectedAccount"></app-account-action>
+  </div>
+</app-modal-container>
